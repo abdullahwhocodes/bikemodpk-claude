@@ -1,25 +1,35 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { supabase } from '@/lib/supabase'
 
 export default function AdminLoginPage() {
   const router = useRouter()
-  const [credentials, setCredentials] = useState({ username: '', password: '' })
+  const [credentials, setCredentials] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
-    
-    // Simple admin check
-    if (credentials.username === 'admin' && credentials.password === 'bikemodpk2026') {
-      localStorage.setItem('isAdmin', 'true')
-      // Small delay before redirect
-      setTimeout(() => {
-        router.push('/admin')
-      }, 100)
-    } else {
-      setError('Invalid credentials!')
+    setError('')
+    setLoading(true)
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: credentials.email,
+      password: credentials.password
+    })
+
+    if (error) {
+      setError('Invalid email or password')
+      setLoading(false)
+      return
     }
+
+    if (data.user) {
+      router.push('/admin')
+    }
+
+    setLoading(false)
   }
 
   return (
@@ -32,11 +42,12 @@ export default function AdminLoginPage() {
 
         <form onSubmit={handleLogin} className="login-form">
           <input
-            type="text"
-            placeholder="Username"
-            value={credentials.username}
-            onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+            type="email"
+            placeholder="Email"
+            value={credentials.email}
+            onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
             className="login-input"
+            required
           />
           <input
             type="password"
@@ -44,15 +55,12 @@ export default function AdminLoginPage() {
             value={credentials.password}
             onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
             className="login-input"
+            required
           />
-          <button type="submit" className="btn-primary">
-            LOGIN
+          <button type="submit" disabled={loading} className="btn-primary">
+            {loading ? 'LOGGING IN...' : 'LOGIN'}
           </button>
         </form>
-
-        <p className="login-hint">
-          Demo: admin / bikemodpk2026
-        </p>
       </div>
     </div>
   )

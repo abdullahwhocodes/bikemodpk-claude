@@ -22,6 +22,28 @@ export default function HomePage() {
   // Bikes fetch karo
   useEffect(() => {
     fetchBikes()
+    
+    // ✅ REALTIME SUBSCRIPTION
+    const channel = supabase
+      .channel('bikes-changes')
+      .on(
+        'postgres_changes',
+        { 
+          event: '*', 
+          schema: 'public', 
+          table: 'bikes' 
+        },
+        (payload) => {
+          console.log('Bike change detected:', payload)
+          fetchBikes() // Auto-refresh when admin makes changes
+        }
+      )
+      .subscribe()
+
+    // Cleanup on unmount
+    return () => {
+      supabase.removeChannel(channel)
+    }
   }, [currentPage])
 
   const fetchBikes = async () => {

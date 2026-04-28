@@ -28,12 +28,12 @@ export default function Footer() {
         {/* Column 1 */}
         <div className="footer-col">
           <h4>Company</h4>
-          <Link href="#">About</Link>
-          <Link href="#">Advertising</Link>
-          <Link href="#">Submit</Link>
-          <Link href="#">Contact</Link>
-          <Link href="#">Team</Link>
-          <Link href="#">Privacy Policy</Link>
+          <Link href="/about">About</Link>
+          <Link href="/advertising">Advertising</Link>
+          <Link href="/submit">Submit</Link>
+          <Link href="/contact">Contact</Link>
+          <Link href="/team">Team</Link>
+          <Link href="/privacy">Privacy Policy</Link>
         </div>
 
         {/* Column 2 */}

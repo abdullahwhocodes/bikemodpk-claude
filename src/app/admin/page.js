@@ -11,6 +11,7 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('bikes')
   const [showAddForm, setShowAddForm] = useState(false)
   const [editingBike, setEditingBike] = useState(null)
+  const [adminCommentData, setAdminCommentData] = useState({ bike_id: '', content: '' })
   
   const [formData, setFormData] = useState({
     title: '',
@@ -45,30 +46,47 @@ export default function AdminDashboard() {
   }
 
   useEffect(() => {
-    const isAdmin = localStorage.getItem('isAdmin')
-    if (!isAdmin) {
+    checkAuth()
+  }, [router])
+
+  const checkAuth = async () => {
+    const { data: { session } } = await supabase.auth.getSession()
+    
+    if (!session) {
       router.push('/admin/login')
       return
     }
     
     fetchBikes()
     fetchComments()
-  }, [router])
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
+
+    let result
 
     if (editingBike) {
-      await supabase
+      result = await supabase
         .from('bikes')
         .update(formData)
         .eq('id', editingBike.id)
     } else {
-      await supabase
+      result = await supabase
         .from('bikes')
         .insert([formData])
     }
 
+    // ✅ ERROR CHECK
+    if (result.error) {
+      console.error('Save error:', result.error)
+      alert(`Failed to save: ${result.error.message}`)
+      setLoading(false)
+      return
+    }
+
+    // ✅ SUCCESS - RESET FORM
     setFormData({
       title: '',
       category: 'cafe-racers',
@@ -82,7 +100,10 @@ export default function AdminDashboard() {
     })
     setShowAddForm(false)
     setEditingBike(null)
+    setLoading(false)
     fetchBikes()
+    
+    alert('✓ Bike saved successfully!')
   }
 
   const handleEdit = (bike) => {
@@ -105,8 +126,29 @@ export default function AdminDashboard() {
     }
   }
 
-  const handleLogout = () => {
-    localStorage.removeItem('isAdmin')
+  const handlePostAdminComment = async (e) => {
+    e.preventDefault()
+    
+    if (!adminCommentData.bike_id || !adminCommentData.content.trim()) {
+      alert('Please fill in all fields')
+      return
+    }
+
+    const { error } = await supabase.from('comments').insert([{
+      bike_id: adminCommentData.bike_id,
+      author: 'BikeModPK Admin',
+      content: adminCommentData.content,
+      is_admin: true
+    }])
+
+    if (!error) {
+      setAdminCommentData({ bike_id: '', content: '' })
+      fetchComments()
+    }
+  }
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
     router.push('/')
   }
 
@@ -272,11 +314,37 @@ export default function AdminDashboard() {
 
       {activeTab === 'comments' && (
         <div className="admin-content">
+          
+          {/* ADMIN COMMENT FORM */}
+          <div className="admin-comment-box">
+            <h3>Post as Admin</h3>
+            <form onSubmit={handlePostAdminComment} className="admin-form">
+              <input 
+                type="text" 
+                placeholder="Bike ID" 
+                value={adminCommentData.bike_id}
+                onChange={(e) => setAdminCommentData({...adminCommentData, bike_id: e.target.value})}
+                className="admin-input"
+                required
+              />
+              <textarea 
+                placeholder="Your admin comment..." 
+                rows="3"
+                value={adminCommentData.content}
+                onChange={(e) => setAdminCommentData({...adminCommentData, content: e.target.value})}
+                className="admin-input"
+                required
+              ></textarea>
+              <button type="submit" className="btn-primary">Post Comment</button>
+            </form>
+          </div>
+
+          {/* EXISTING COMMENTS LIST */}
           <div className="admin-list">
             {comments.map(comment => (
               <div key={comment.id} className="admin-item">
                 <div>
-                  <h4>{comment.author}</h4>
+                  <h4>{comment.author}{comment.is_admin && <span className="admin-badge"> (ADMIN)</span>}</h4>
                   <p className="comment-preview">{comment.content}</p>
                   <p className="admin-meta">
                     on {comment.bikes?.title} • {new Date(comment.created_at).toLocaleDateString()}

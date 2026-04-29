@@ -78,7 +78,10 @@ export default function HomePage() {
 
         {/* BIKES GRID */}
         {loading ? (
-          <div className="loading">Loading builds...</div>
+          <div className="loading-spinner">
+            <div className="spinner"></div>
+            <p>Loading builds...</p>
+          </div>
         ) : (
           <div className="bikes-grid">
             {bikes.map(bike => (

@@ -39,26 +39,28 @@ export default function Footer() {
         {/* Column 2 */}
         <div className="footer-col">
           <h4>Builds</h4>
-          <Link href="/category/cafe-racers">Cafe Racers</Link>
-          <Link href="/category/trackers">Trackers</Link>
-          <Link href="/category/bobbers">Bobbers</Link>
-          <Link href="/category/choppers">Choppers</Link>
           <Link href="/category/classics">Classics</Link>
+          <Link href="/category/cafe-racers">Cafe Racers</Link>
           <Link href="/category/scramblers">Scramblers</Link>
+          <Link href="/category/trackers">Trackers</Link>
+          <Link href="/category/choppers">Choppers</Link>
+          <Link href="/category/bobbers">Bobbers</Link>
+          <Link href="/category/tour-bikes">Tour Bikes</Link>
+          <Link href="/category/heavy-bikes">Heavy Bikes</Link>
         </div>
 
         {/* Column 3 */}
         <div className="footer-col">
           <h4>Brands</h4>
-          <Link href="#">Honda</Link>
-          <Link href="#">Suzuki</Link>
-          <Link href="#">Hi Speed</Link>
-          <Link href="#">Yamaha</Link>
-          <Link href="#">Kawasaki</Link>
-          <Link href="#">Crown Lifan</Link>
-          <Link href="#">Ravi</Link>
-          <Link href="#">Harley-Davidson</Link>
-          <Link href="#">BMW</Link>
+          <Link href="/brand/honda">Honda</Link>
+          <Link href="/brand/suzuki">Suzuki</Link>
+          <Link href="/brand/hi-speed">Hi Speed</Link>
+          <Link href="/brand/yamaha">Yamaha</Link>
+          <Link href="/brand/kawasaki">Kawasaki</Link>
+          <Link href="/brand/crown-lifan">Crown Lifan</Link>
+          <Link href="/brand/ravi">Ravi</Link>
+          <Link href="/brand/harley-davidson">Harley-Davidson</Link>
+          <Link href="/brand/bmw">BMW</Link>
         </div>
 
         {/* Column 4 */}

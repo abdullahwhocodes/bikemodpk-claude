@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Dark background -->
+  <rect width="100" height="100" fill="#1a1a1a"/>
+  
+  <!-- Red vertical bar (accent) -->
+  <rect x="5" y="20" width="8" height="60" fill="#dc2626" rx="2"/>
+  
+  <!-- BMP Text -->
+  <text x="50" y="58" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="middle">BMP</text>
+</svg>

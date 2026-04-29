@@ -3,8 +3,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 const categories = [
-  'Classics', 'Cafe Racers', 'Scramblers', 
-  'Trackers', 'Choppers', 'Cruisers', 'Heavy Bikes'
+  'Classics', 'Cafe Racers', 'Scramblers',
+  'Trackers', 'Choppers', 'Bobbers', 'Tour Bikes', 'Heavy Bikes'
 ]
 
 export default function Header({ darkMode, setDarkMode }) {
@@ -13,7 +13,7 @@ export default function Header({ darkMode, setDarkMode }) {
   return (
     <header className="header">
       <div className="header-inner">
-        
+
         {/* LOGO */}
         <Link href="/" className="logo">
           BIKEMOD<span>PK</span>
@@ -23,8 +23,8 @@ export default function Header({ darkMode, setDarkMode }) {
         <nav className="desktop-nav">
           <Link href="/">Home</Link>
           {categories.map(cat => (
-            <Link 
-              key={cat} 
+            <Link
+              key={cat}
               href={`/category/${cat.toLowerCase().replace(' ', '-')}`}
             >
               {cat}
@@ -35,7 +35,7 @@ export default function Header({ darkMode, setDarkMode }) {
         {/* RIGHT SIDE */}
         <div className="header-right">
           {/* Dark/Light Toggle */}
-          <button 
+          <button
             className="toggle-btn"
             onClick={() => setDarkMode(!darkMode)}
           >
@@ -43,7 +43,7 @@ export default function Header({ darkMode, setDarkMode }) {
           </button>
 
           {/* Mobile Menu Button */}
-          <button 
+          <button
             className="mobile-menu-btn"
             onClick={() => setMenuOpen(!menuOpen)}
           >
@@ -57,8 +57,8 @@ export default function Header({ darkMode, setDarkMode }) {
         <nav className="mobile-nav">
           <Link href="/" onClick={() => setMenuOpen(false)}>Home</Link>
           {categories.map(cat => (
-            <Link 
-              key={cat} 
+            <Link
+              key={cat}
               href={`/category/${cat.toLowerCase().replace(' ', '-')}`}
               onClick={() => setMenuOpen(false)}
             >

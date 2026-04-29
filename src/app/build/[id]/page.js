@@ -26,6 +26,9 @@ export default function BuildDetailPage() {
   const fetchBuildData = async () => {
     setLoading(true)
 
+    // Debug bikeId
+    console.log('bikeId type:', typeof params.id, params.id)
+
     // Bike fetch
     const { data: bikeData } = await supabase
       .from('bikes')
@@ -80,6 +83,9 @@ export default function BuildDetailPage() {
           <a href={`https://instagram.com/${bike.builder_insta}`} target="_blank">
             @{bike.builder_insta}
           </a>
+          {bike.brand && (
+            <> • <span className="bike-brand">{bike.brand.toUpperCase()}</span></>
+          )}
         </div>
 
         {/* DESCRIPTION */}

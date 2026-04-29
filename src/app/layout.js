@@ -21,8 +21,21 @@ const barlow = Barlow({
 
 export const metadata = {
   title: 'BikeModPK | Build. Ride. Repeat.',
-  description: 'Pakistan ka #1 bike modification platform',
-  manifest: '/manifest.json',
+  description: 'Pakistan ka #1 bike modification platform. Share your custom builds, discover unique designs, and connect with the riding community.',
+  keywords: 'bike modification, custom bikes, cafe racer, scrambler, Pakistan bikes, motorcycle builds',
+  authors: [{ name: 'BikeModPK' }],
+  manifest: '/site.webmanifest',
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
+  openGraph: {
+    title: 'BikeModPK | Build. Ride. Repeat.',
+    description: 'Pakistan ka #1 bike modification platform',
+    type: 'website',
+    locale: 'en_PK',
+  },
 }
 
 export default function RootLayout({ children }) {

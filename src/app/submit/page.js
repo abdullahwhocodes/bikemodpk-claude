@@ -210,13 +210,14 @@ export default function SubmitPage() {
                   onChange={(e) => setFormData({...formData, category: e.target.value})}
                   required
                 >
-                  <option value="cafe-racers">Cafe Racer</option>
-                  <option value="scramblers">Scrambler</option>
-                  <option value="trackers">Tracker</option>
-                  <option value="choppers">Chopper</option>
-                  <option value="classics">Classic</option>
-                  <option value="cruisers">Cruiser</option>
-                  <option value="heavy-bikes">Heavy Bike</option>
+                  <option value="classics">Classics</option>
+                  <option value="cafe-racers">Cafe Racers</option>
+                  <option value="scramblers">Scramblers</option>
+                  <option value="trackers">Trackers</option>
+                  <option value="choppers">Choppers</option>
+                  <option value="bobbers">Bobbers</option>
+                  <option value="tour-bikes">Tour Bikes</option>
+                  <option value="heavy-bikes">Heavy Bikes</option>
                 </select>
               </div>
 

@@ -27,7 +27,7 @@ export default function TeamPage() {
           
           <div className="team-member">
             <div className="member-image">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Abdullah Junaid" />
+              <img src="/abdullah.jpeg" alt="Abdullah Junaid" />
             </div>
             <div className="member-info">
               <h3>Founder</h3>

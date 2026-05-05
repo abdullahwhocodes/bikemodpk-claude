@@ -22,6 +22,7 @@ export default function Header({ darkMode, setDarkMode }) {
         {/* DESKTOP NAV */}
         <nav className="desktop-nav">
           <Link href="/">Home</Link>
+          <Link href="/about">About</Link>
           {categories.map(cat => (
             <Link
               key={cat}
@@ -56,6 +57,7 @@ export default function Header({ darkMode, setDarkMode }) {
       {menuOpen && (
         <nav className="mobile-nav">
           <Link href="/" onClick={() => setMenuOpen(false)}>Home</Link>
+          <Link href="/about" onClick={() => setMenuOpen(false)}>About</Link>
           {categories.map(cat => (
             <Link
               key={cat}
